@@ -1,0 +1,199 @@
+:root {
+    --main-color: #f76c6c;
+    --dark-color: rgb(36, 36, 36);
+    --transparent-dark-color: rgb(36, 36, 36, 0.6);
+    --light-color: rgb(240, 239, 239);
+    --spacing: 16px;
+    font-size: 20px;
+    line-height: 150%;
+    font-family: Verdana;
+    --menu-width: 85vw;
+    scroll-behavior: smooth;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin:0;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+
+    width: 100vw;
+    padding: var(--spacing);
+
+    background-color: var(--main-color);
+    color:var(--light-color);
+}
+
+.brand {
+    font-size: 1.5rem;
+    color: var(--secondary-color);
+}
+
+
+a:any-link {
+    color: var(--light-color);
+    text-decoration: none;
+    text-decoration-color: transparent;
+    text-decoration-thickness: 0.1em;
+    text-underline-offset: 0.3em;
+}
+
+h2 {
+    display: flex;
+    align-items: center;
+}
+
+h2::before {
+    content: '';
+    width: 8px;
+    height: 1.2em;
+    margin-inline: 0 8px;
+    background-color: var(--main-color);
+}
+
+nav a:hover:not(.menu) {
+    text-decoration: underline 0.3em;
+    text-underline-offset: 0.4em;
+    transition: text-decoration-thickness 300ms ease-in-out;
+    
+}
+
+.items {
+    display: flex;
+    text-align: center;
+}
+
+.menu {
+    display: none;
+}
+
+.items a {
+    padding-inline-end: var(--spacing);
+}
+
+section {
+    padding: var(--spacing);
+}
+
+header {
+    --header-height: 300px;
+    height: var(--header-height);
+    background: url('https://loremflickr.com/1200/500');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color:var(--light-color);
+}
+
+header h1 {
+    padding: 0.5em;
+    background-color: var(--transparent-dark-color);
+    font-size: clamp(1rem, 4vw, 3rem);
+}
+
+.cards {
+    background-color: var(--main-color);
+    color: var(--light-color);
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: var(--spacing);
+}
+
+.card {
+    border:1px solid var(--light-color);
+    border-radius: 4px;
+    padding: var(--spacing);
+    font-size: 1.2rem;
+}
+
+.card:nth-child(1) {
+    grid-column: span 2 ;
+    grid-row: span 2;
+}
+
+.close {
+    display: none;
+}
+
+@media screen and (max-width:500px) {
+    .menu {
+        display: flex;
+        align-items: center;
+    }
+
+    .items {
+        display: none;
+        z-index: 1;
+        font-size: 1.5rem;
+        line-height: 3rem;
+    }
+
+    .items:target {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        position:fixed;
+        top:0;
+        left:0;
+
+        width: var(--menu-width);
+        height: 100vh;
+
+        background-color: var(--main-color);
+        opacity: 1;
+
+        box-shadow: 0 4px 16px var(--dark-color);
+        animation: translate 0.5s ease-in-out;
+        z-index: 2;
+    }
+
+    @keyframes translate {
+        0% {left:-80vw}
+        100% {left:0}
+    }
+
+    .items:target + .close {
+        display: flex;
+        width: 100vw;
+        height: 100vh;
+        position:fixed;
+        inset:0;
+        background-color: var(--dark-color);
+        opacity: 0.5;
+        z-index:1;
+    }
+
+    .cards {
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(4, 1fr);
+    }
+
+    .go-top svg {
+        --size:80px;
+        width: var(--size);
+        height: var(--size);
+        fill:var(--main-color);
+    }
+
+    .go-top {
+        position: fixed;
+        bottom: var(--spacing);
+        right: var(--spacing);
+        opacity: 0.5;
+        mix-blend-mode: multiply;
+    }
+    
+}
