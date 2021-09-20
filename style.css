@@ -1,14 +1,9 @@
 :root {
-    --main-color: #f76c6c;
-    --dark-color: rgb(36, 36, 36);
-    --transparent-dark-color: rgb(36, 36, 36, 0.6);
-    --light-color: rgb(240, 239, 239);
+    --main-color: #f76c6c; 
+    --light: white;
     --spacing: 16px;
-    font-size: 20px;
-    line-height: 150%;
-    font-family: Verdana;
-    --menu-width: 85vw;
-    scroll-behavior: smooth;
+    --text-font: Arial;
+    --title-font: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 * {
@@ -17,183 +12,84 @@
 
 body {
     margin:0;
+    font-size: 20px;
+    line-height: 150%;
+    font-family: var(--text-font);
 }
 
 nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    flex-wrap: wrap;
-
-    width: 100vw;
+    background-color: var(--main-color); 
+    color: var(--light);
+    font-size: 1.2rem;
     padding: var(--spacing);
 
-    background-color: var(--main-color);
-    color:var(--light-color);
 }
+
+nav a:any-link {
+    color: var(--light);
+    text-decoration: none;
+} 
 
 .brand {
     font-size: 1.5rem;
-    color: var(--secondary-color);
-}
-
-
-a:any-link {
-    color: var(--light-color);
-    text-decoration: none;
-    text-decoration-color: transparent;
-    text-decoration-thickness: 0.1em;
-    text-underline-offset: 0.3em;
-}
-
-h2 {
-    display: flex;
-    align-items: center;
-}
-
-h2::before {
-    content: '';
-    width: 8px;
-    height: 1.2em;
-    margin-inline: 0 8px;
-    background-color: var(--main-color);
-}
-
-nav a:hover:not(.menu) {
-    text-decoration: underline 0.3em;
-    text-underline-offset: 0.4em;
-    transition: text-decoration-thickness 300ms ease-in-out;
-    
 }
 
 .items {
     display: flex;
-    text-align: center;
-}
-
-.menu {
-    display: none;
-}
-
-.items a {
-    padding-inline-end: var(--spacing);
-}
-
-section {
-    padding: var(--spacing);
+    flex-direction: column;
+    gap: calc(var(--spacing) / 2);
 }
 
 header {
-    --header-height: 300px;
-    height: var(--header-height);
-    background: url('https://loremflickr.com/1200/500');
-    background-size: cover;
-    background-position: center;
     display: flex;
     justify-content: center;
     align-items: center;
-    color:var(--light-color);
+    --height: 300px;
+    height: var(--height);
+    background-size: cover;
+    background-image: url('https://loremflickr.com/cache/resized/65535_51206531887_08ad7a4e2c_k_1200_300_nofilter.jpg');
+    color:var(--light);
+    font-size: clamp(1.3rem, 5vw, 3rem);
 }
 
-header h1 {
-    padding: 0.5em;
-    background-color: var(--transparent-dark-color);
-    font-size: clamp(1rem, 4vw, 3rem);
+h1, h2 {
+    font-family: var(--title-font);
 }
 
-.cards {
-    background-color: var(--main-color);
-    color: var(--light-color);
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(2, 1fr);
-    gap: var(--spacing);
-}
-
-.card {
-    border:1px solid var(--light-color);
-    border-radius: 4px;
+.about {
     padding: var(--spacing);
-    font-size: 1.2rem;
 }
 
-.card:nth-child(1) {
-    grid-column: span 2 ;
-    grid-row: span 2;
+.products {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: repeat(4, 100px);
+    background-color: var(--main-color);
+    color: var(--light);
+    gap: var(--spacing);
+    padding: var(--spacing);
 }
 
-.close {
-    display: none;
+.products div {
+    border: 1px solid var(--light);
+    padding: var(--spacing);
 }
 
-@media screen and (max-width:500px) {
-    .menu {
-        display: flex;
-        align-items: center;
-    }
+.products div:first-child {
+    grid-column: 1 / 3;
+    grid-row: 1 / 3;
+}
 
+@media screen and (min-width:500px)  {
     .items {
-        display: none;
-        z-index: 1;
-        font-size: 1.5rem;
-        line-height: 3rem;
+        flex-direction: row;
     }
 
-    .items:target {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-
-        position:fixed;
-        top:0;
-        left:0;
-
-        width: var(--menu-width);
-        height: 100vh;
-
-        background-color: var(--main-color);
-        opacity: 1;
-
-        box-shadow: 0 4px 16px var(--dark-color);
-        animation: translate 0.5s ease-in-out;
-        z-index: 2;
+    .products {
+        grid-template-columns: repeat(4, 1fr);  
+        grid-template-rows: 100px 100px;
     }
-
-    @keyframes translate {
-        0% {left:-80vw}
-        100% {left:0}
-    }
-
-    .items:target + .close {
-        display: flex;
-        width: 100vw;
-        height: 100vh;
-        position:fixed;
-        inset:0;
-        background-color: var(--dark-color);
-        opacity: 0.5;
-        z-index:1;
-    }
-
-    .cards {
-        grid-template-columns: 1fr;
-        grid-template-rows: repeat(4, 1fr);
-    }
-
-    .go-top svg {
-        --size:80px;
-        width: var(--size);
-        height: var(--size);
-        fill:var(--main-color);
-    }
-
-    .go-top {
-        position: fixed;
-        bottom: var(--spacing);
-        right: var(--spacing);
-        opacity: 0.5;
-        mix-blend-mode: multiply;
-    }
-    
 }
